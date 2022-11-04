@@ -1,6 +1,7 @@
-package tubitak.hikaripool;
+package tr.gov.bilgem.tubitak.hikaripool;
 
 import tr.gov.bilgem.tubitak.hikaripool.data.entity.User;
+import tr.gov.bilgem.tubitak.hikaripool.data.repository.UserRepository;
 
 import java.sql.SQLException;
 

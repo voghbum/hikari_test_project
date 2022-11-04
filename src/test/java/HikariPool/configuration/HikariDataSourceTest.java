@@ -8,7 +8,7 @@ import com.zaxxer.hikari.util.UtilityElf;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import tr.gov.tubitak.bilgem.hikaripool.configuration.HikariConf;
+import tr.gov.bilgem.tubitak.hikaripool.configuration.HikariConf;
 
 import java.io.IOException;
 import java.sql.Connection;
