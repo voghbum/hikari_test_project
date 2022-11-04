@@ -8,7 +8,7 @@ import com.zaxxer.hikari.util.UtilityElf;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import tr.gov.tubitak.bilgem.hikaripool.configuration.HikariConf;
+import tr.gov.bilgem.tubitak.hikaripool.configuration.HikariConf;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -22,11 +22,9 @@ import java.util.stream.IntStream;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class HikariDataSourceTest {
-    //gitignore
     private HikariDataSource hikariDataSource;
     private HikariPoolMXBean hikariPoolMXBean;
     private HikariConfigMXBean hikariConfigMXBean;
-
     private List<Connection> connections;
 
     @BeforeEach
@@ -73,7 +71,6 @@ public class HikariDataSourceTest {
 
     @Test
     public void isMaxConnectionPropertiesTrue() {
-
         connections = new ArrayList<>();
         hikariDataSource = HikariConf.getDs();
         hikariConfigMXBean = hikariDataSource.getHikariConfigMXBean();
@@ -99,7 +96,6 @@ public class HikariDataSourceTest {
                 throw new RuntimeException(e);
             }
         });
-
 
         // Burada 5 sn bekleyip exception alacağız.
         Instant start = Instant.now();
@@ -144,7 +140,6 @@ public class HikariDataSourceTest {
         datasource.getHikariPoolMXBean().resumePool();
     }
 
-    //TODO: current thread runnable gözüküyor blocked olmalı Oğuz Abi sor.
     @Test
     public void isWaitingThreadIfPoolSuspendedAndIfThrowSuspendedPropertyFalse() throws SQLException {
         System.setProperty("com.zaxxer.hikari.throwIfSuspended", "false");
@@ -160,7 +155,6 @@ public class HikariDataSourceTest {
         hikariDataSource.getHikariPoolMXBean().resumePool();
     }
 
-    //TODO: connection'ın retired olduğunu nasıl test edeceğiz?
     @Test
     public void isRetiredConnectionIfMaxLifeTimeExceed() throws SQLException {
         HikariDataSource datasource = HikariConf.getDs();
@@ -246,6 +240,4 @@ public class HikariDataSourceTest {
 
         return blockedThreads.isEmpty() ? Optional.empty() : Optional.of(blockedThreads);
     }
-
-
 }

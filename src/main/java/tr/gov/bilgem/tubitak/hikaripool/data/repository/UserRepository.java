@@ -1,4 +1,4 @@
-package tubitak.hikaripool;
+package tr.gov.bilgem.tubitak.hikaripool.data.repository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

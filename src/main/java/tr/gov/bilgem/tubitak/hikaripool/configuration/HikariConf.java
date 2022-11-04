@@ -1,4 +1,4 @@
-package tubitak.hikaripool.configuration;
+package tr.gov.bilgem.tubitak.hikaripool.configuration;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

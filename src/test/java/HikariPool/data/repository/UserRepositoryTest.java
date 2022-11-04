@@ -1,8 +1,8 @@
 package HikariPool.data.repository;
 
 import org.junit.jupiter.api.Test;
-import tr.gov.tubitak.bilgem.hikaripool.data.entity.User;
-import tr.gov.tubitak.bilgem.hikaripool.data.repository.UserRepository;
+import tr.gov.bilgem.tubitak.hikaripool.data.entity.User;
+import tr.gov.bilgem.tubitak.hikaripool.data.repository.UserRepository;
 
 import java.util.List;
 import java.util.stream.StreamSupport;
