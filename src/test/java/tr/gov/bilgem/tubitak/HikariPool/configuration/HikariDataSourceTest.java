@@ -8,7 +8,8 @@ import com.zaxxer.hikari.util.UtilityElf;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import tr.gov.bilgem.tubitak.hikaripool.configuration.HikariConf;
+import tr.gov.bilgem.tubitak.arch.pools.HikariPool;
+import tr.gov.bilgem.tubitak.eski.hikaripool.configuration.HikariConf;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -30,7 +31,7 @@ public class HikariDataSourceTest {
     @BeforeEach
     public void initTestEnvironment() {
         connections = new ArrayList<>();
-        hikariDataSource = HikariConf.getDs();
+        hikariDataSource = HikariPool.getDs();
         hikariConfigMXBean = hikariDataSource.getHikariConfigMXBean();
         hikariPoolMXBean = hikariDataSource.getHikariPoolMXBean();
     }
@@ -71,15 +72,11 @@ public class HikariDataSourceTest {
 
     @Test
     public void isMaxConnectionPropertiesTrue() {
-        connections = new ArrayList<>();
-        hikariDataSource = HikariConf.getDs();
-        hikariConfigMXBean = hikariDataSource.getHikariConfigMXBean();
-        hikariPoolMXBean = hikariDataSource.getHikariPoolMXBean();
-        // config.setMaximumPoolSize(10) -> havuzda olabilecek maksimum bağlantı sayısı.
-
         //MaksimumPoolSize'ın 10 olduğundan emin olalım.
         int tempMaxPoolSize = hikariConfigMXBean.getMaximumPoolSize();
         hikariConfigMXBean.setMaximumPoolSize(10);
+
+        assertEquals(10000, hikariConfigMXBean.getConnectionTimeout());
 
         long tempTimeOut = hikariConfigMXBean.getConnectionTimeout();
 
@@ -189,25 +186,15 @@ public class HikariDataSourceTest {
         System.setProperty("com.zaxxer.hikari.throwIfSuspended", "true");
 
         for (int i = 0; i < 5; i++)
-            connections.add(HikariConf.getConnection());
+            connections.add(hikariDataSource.getConnection());
 
         assertEquals(5, hikariPoolMXBean.getTotalConnections());
 
         hikariPoolMXBean.suspendPool();
-        assertThrows(java.sql.SQLException.class, HikariConf::getConnection);
+        assertThrows(java.sql.SQLException.class, hikariDataSource::getConnection);
         UtilityElf.quietlySleep(4_000);
         hikariPoolMXBean.resumePool();
         assertEquals(5, hikariDataSource.getHikariPoolMXBean().getTotalConnections());
-
-        connections.forEach((elem) -> {
-            try {
-                elem.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-
     }
 
     private Optional<Set<Thread>> getAllWaitingThreadIfExist() {

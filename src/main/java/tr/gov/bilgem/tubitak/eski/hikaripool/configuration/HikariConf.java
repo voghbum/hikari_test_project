@@ -1,4 +1,4 @@
-package tr.gov.bilgem.tubitak.hikaripool.configuration;
+package tr.gov.bilgem.tubitak.eski.hikaripool.configuration;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -28,6 +28,7 @@ public class HikariConf {
             Pool suspend edildiğinde connection istendiğinde eğer exception edilmek istenirse bu property set edilmeli.
             HikariConfig'de setter yok. Buradan yapılmalı.
         */
+
         //System.setProperty("com.zaxxer.hikari.throwIfSuspended", "true");
 
         ds = new HikariDataSource(config);

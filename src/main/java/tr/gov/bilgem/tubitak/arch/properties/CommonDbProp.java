@@ -7,7 +7,6 @@ import java.util.Properties;
 public class CommonDbProp {
     private String user;
     private String password;
-    private String driverClassName;
     private String url;
     private String poolType;
 
@@ -19,9 +18,9 @@ public class CommonDbProp {
         Properties commonProp = new Properties();
 
         try {
-            commonProp.load(ClassLoader.getSystemResourceAsStream("hikaridbprop.properties"));
+            commonProp.load(ClassLoader.getSystemResourceAsStream("commondbprop.properties"));
         } catch (IOException e) {
-            throw new RuntimeException("'hikaridbprop.properties' cannot found or load", e);
+            throw new RuntimeException("'commondbprop.properties' cannot found or load", e);
         }
 
         parseInProperties(commonProp);
@@ -35,12 +34,7 @@ public class CommonDbProp {
         this.password = password;
     }
 
-    public void setDriverClassName(String driverClassName) {
-        this.driverClassName = driverClassName;
-    }
-
     public void setUrl(String url) {
-        Objects.requireNonNull(url, "");
         this.url = url;
     }
 
@@ -59,9 +53,6 @@ public class CommonDbProp {
         return password;
     }
 
-    public String getDriverClassName() {
-        return driverClassName;
-    }
 
     public String getUrl() {
         return url;
@@ -74,7 +65,6 @@ public class CommonDbProp {
     private void parseInProperties(Properties commonProp) {
         setUser(commonProp.getProperty("user"));
         setPassword(commonProp.getProperty("password"));
-        setDriverClassName(commonProp.getProperty("driverClassName"));
         setUrl(commonProp.getProperty("url"));
         setPoolType(commonProp.getProperty("poolType"));
     }

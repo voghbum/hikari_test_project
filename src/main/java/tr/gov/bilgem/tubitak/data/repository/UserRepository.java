@@ -2,7 +2,7 @@ package tr.gov.bilgem.tubitak.data.repository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tr.gov.bilgem.tubitak.hikaripool.configuration.HikariConf;
+import tr.gov.bilgem.tubitak.eski.hikaripool.configuration.HikariConf;
 import tr.gov.bilgem.tubitak.data.entity.User;
 
 import java.sql.Connection;

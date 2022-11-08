@@ -1,4 +1,4 @@
-package tr.gov.bilgem.tubitak.dbcp2.configuration;
+package tr.gov.bilgem.tubitak.eski.dbcp2.configuration;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 

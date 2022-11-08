@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class ConnectionPoolFactory {
-    public static CommonPool createAndConfigurePool() {
+    public static CommonPool createPool() {
         CommonPool pool;
 
         Properties commonProp = new Properties();
@@ -38,7 +38,7 @@ public class ConnectionPoolFactory {
         return pool;
     }
 
-    public static CommonPool createAndConfigurePool(String type) {
+    public static CommonPool createPool(String type) {
         switch (type) {
             case "Hikari":
                 return new HikariPool();

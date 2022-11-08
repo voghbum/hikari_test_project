@@ -9,11 +9,6 @@ public class Dbcp2Pool implements CommonPool {
     private static BasicDataSource ds;
 
     @Override
-    public void configure() {
-
-    }
-
-    @Override
     public Connection getConnection() throws SQLException {
         return ds.getConnection();
     }

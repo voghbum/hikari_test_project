@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class Dbcp2Prop extends CommonDbProp{
-    private Properties dbcp2Prop;
+    private final Properties dbcp2Prop;
 
     private void parse() {
 

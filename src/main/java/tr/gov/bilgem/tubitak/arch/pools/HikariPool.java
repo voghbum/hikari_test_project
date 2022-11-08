@@ -4,7 +4,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariConfigMXBean;
 import com.zaxxer.hikari.HikariDataSource;
 import com.zaxxer.hikari.HikariPoolMXBean;
-import tr.gov.bilgem.tubitak.arch.properties.HikariProp;
+import tr.gov.bilgem.tubitak.arch.properties.CommonDbProp;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -15,22 +15,29 @@ public class HikariPool implements CommonPool {
     private static HikariDataSource ds;
     private HikariPoolMXBean hikariPoolMXBean;
     private HikariConfigMXBean hikariConfigMXBean;
-    private final HikariProp prop = new HikariProp();
+    private static final CommonDbProp prop = new CommonDbProp();
 
-    @Override
-    public void configure() throws IOException {
+    static {
         Properties properties = new Properties();
-        properties.load(ClassLoader.getSystemResourceAsStream("hikaridbprop.properties"));
+
+        try {
+            properties.load(ClassLoader.getSystemResourceAsStream("hikaridbprop.properties"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         HikariConfig config = new HikariConfig(properties);
 
         config.setUsername(prop.getUser());
         config.setPassword(prop.getPassword());
-        config.setDriverClassName(prop.getDriverClassName());
         config.setJdbcUrl(prop.getUrl());
 
+        ds = new HikariDataSource(config);
+    }
 
 
+    public static HikariDataSource getDs() {
+        return ds;
     }
 
     @Override
