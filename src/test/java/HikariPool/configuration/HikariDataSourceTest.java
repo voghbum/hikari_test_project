@@ -118,7 +118,6 @@ public class HikariDataSourceTest {
 
         hikariConfigMXBean.setMaximumPoolSize(tempMaxPoolSize);
         hikariConfigMXBean.setConnectionTimeout(tempTimeOut);
-        System.out.println("TEMP TIMEOUT: " + tempTimeOut);
     }
 
     @Test
@@ -153,26 +152,6 @@ public class HikariDataSourceTest {
         assertNotEquals(Optional.empty(), getAllWaitingThreadIfExist());
 
         hikariDataSource.getHikariPoolMXBean().resumePool();
-    }
-
-    @Test
-    public void isRetiredConnectionIfMaxLifeTimeExceed() throws SQLException {
-        HikariDataSource datasource = HikariConf.getDs();
-
-        HikariPoolMXBean poolMXBean = datasource.getHikariPoolMXBean();
-
-        connections.add(hikariDataSource.getConnection());
-
-        assertEquals(1, poolMXBean.getTotalConnections());
-
-        connections.get(connections.size() - 1).close();
-
-        /*//TODO:
-        poolMXBean.getIdleConnections()*/
-
-        UtilityElf.quietlySleep(15_000);
-
-        assertNull(connections.get(connections.size() - 1));
     }
 
     @Test

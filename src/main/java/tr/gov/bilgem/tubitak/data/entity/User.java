@@ -1,4 +1,4 @@
-package tr.gov.bilgem.tubitak.hikaripool.data.entity;
+package tr.gov.bilgem.tubitak.data.entity;
 
 public class User {
     private Long id;
