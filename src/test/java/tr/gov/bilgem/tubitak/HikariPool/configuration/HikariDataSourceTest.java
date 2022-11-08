@@ -1,4 +1,4 @@
-package HikariPool.configuration;
+package tr.gov.bilgem.tubitak.HikariPool.configuration;
 
 
 import com.zaxxer.hikari.HikariConfigMXBean;
@@ -54,7 +54,7 @@ public class HikariDataSourceTest {
     @Test
     public void testAllPropertiesIsTrue() throws SQLException, IOException {
         Properties properties = new Properties();
-        properties.load(ClassLoader.getSystemResourceAsStream("hikari.properties"));
+        properties.load(ClassLoader.getSystemResourceAsStream("hikaridbprop.properties"));
 
         connections.add(hikariDataSource.getConnection());
 

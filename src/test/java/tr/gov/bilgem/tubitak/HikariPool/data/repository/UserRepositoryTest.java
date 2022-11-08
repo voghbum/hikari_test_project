@@ -1,4 +1,4 @@
-package HikariPool.data.repository;
+package tr.gov.bilgem.tubitak.HikariPool.data.repository;
 
 import org.junit.jupiter.api.Test;
 import tr.gov.bilgem.tubitak.data.entity.User;

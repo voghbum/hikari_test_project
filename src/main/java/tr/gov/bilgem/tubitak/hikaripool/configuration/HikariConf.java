@@ -16,7 +16,7 @@ public class HikariConf {
         HikariConfig config;
         try {
             Properties properties = new Properties();
-                    properties.load(ClassLoader.getSystemResourceAsStream("hikari.properties"));
+                    properties.load(ClassLoader.getSystemResourceAsStream("hikaridbprop.properties"));
             config = new HikariConfig(properties);
 
 
