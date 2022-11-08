@@ -1,7 +1,6 @@
 package tr.gov.bilgem.tubitak.arch.pools;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import tr.gov.bilgem.tubitak.arch.properties.Dbcp2Prop;
 
 import java.sql.Connection;
 import java.sql.SQLException;

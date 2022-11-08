@@ -9,6 +9,7 @@ import tr.gov.bilgem.tubitak.arch.properties.HikariProp;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class HikariPool implements CommonPool {
     private static HikariDataSource ds;
@@ -16,11 +17,19 @@ public class HikariPool implements CommonPool {
     private HikariConfigMXBean hikariConfigMXBean;
     private final HikariProp prop = new HikariProp();
 
-
-
     @Override
-    public void configure() {
-        HikariConfig config = new HikariConfig();
+    public void configure() throws IOException {
+        Properties properties = new Properties();
+        properties.load(ClassLoader.getSystemResourceAsStream("hikaridbprop.properties"));
+
+        HikariConfig config = new HikariConfig(properties);
+
+        config.setUsername(prop.getUser());
+        config.setPassword(prop.getPassword());
+        config.setDriverClassName(prop.getDriverClassName());
+        config.setJdbcUrl(prop.getUrl());
+
+
 
     }
 

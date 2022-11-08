@@ -1,6 +1,7 @@
 package tr.gov.bilgem.tubitak.arch.properties;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Properties;
 
 public class CommonDbProp {
@@ -20,7 +21,7 @@ public class CommonDbProp {
         try {
             commonProp.load(ClassLoader.getSystemResourceAsStream("hikaridbprop.properties"));
         } catch (IOException e) {
-            throw new RuntimeException("hikaridbprop.properties cannot found or load", e);
+            throw new RuntimeException("'hikaridbprop.properties' cannot found or load", e);
         }
 
         parseInProperties(commonProp);
@@ -39,6 +40,7 @@ public class CommonDbProp {
     }
 
     public void setUrl(String url) {
+        Objects.requireNonNull(url, "");
         this.url = url;
     }
 
@@ -47,6 +49,26 @@ public class CommonDbProp {
             this.poolType = poolType;
         else
             throw new RuntimeException("poolType argument not supported");
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getDriverClassName() {
+        return driverClassName;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getPoolType() {
+        return poolType;
     }
 
     private void parseInProperties(Properties commonProp) {
