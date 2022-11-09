@@ -121,19 +121,16 @@ public class HikariDataSourceTest {
     public void isThrowExceptionIfPoolSuspendedAndIfThrowSuspendedPropertyTrue() throws SQLException {
         System.setProperty("com.zaxxer.hikari.throwIfSuspended", "true");
 
-        HikariDataSource datasource = HikariConf.getDs();
-        HikariPoolMXBean poolMXBean = datasource.getHikariPoolMXBean();
-
-        assertEquals(0, poolMXBean.getActiveConnections());
+        assertEquals(0, hikariPoolMXBean.getActiveConnections());
 
         connections.add(hikariDataSource.getConnection());
         // con.close();
 
-        datasource.getHikariPoolMXBean().suspendPool();
+        hikariDataSource.getHikariPoolMXBean().suspendPool();
         // Kalıyo burada...
 
-        assertThrows(java.sql.SQLException.class, HikariConf::getConnection);
-        datasource.getHikariPoolMXBean().resumePool();
+        assertThrows(java.sql.SQLException.class, hikariDataSource::getConnection);
+        hikariDataSource.getHikariPoolMXBean().resumePool();
     }
 
     @Test

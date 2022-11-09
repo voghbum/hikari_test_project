@@ -12,14 +12,12 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class HikariPool implements CommonPool {
-    private static HikariDataSource ds;
-    private HikariPoolMXBean hikariPoolMXBean;
-    private HikariConfigMXBean hikariConfigMXBean;
-    private static final CommonDbProp prop = new CommonDbProp();
+    private static final HikariDataSource ds;
 
     static {
-        Properties properties = new Properties();
+        CommonDbProp prop = new CommonDbProp();
 
+        Properties properties = new Properties();
         try {
             properties.load(ClassLoader.getSystemResourceAsStream("hikaridbprop.properties"));
         } catch (IOException e) {

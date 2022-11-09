@@ -1,7 +1,6 @@
 package tr.gov.bilgem.tubitak.arch.properties;
 
 import java.io.IOException;
-import java.util.Objects;
 import java.util.Properties;
 
 public class CommonDbProp {

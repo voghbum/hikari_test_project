@@ -3,7 +3,7 @@ package tr.gov.bilgem.tubitak.arch.properties;
 import java.io.IOException;
 import java.util.Properties;
 
-public class Dbcp2Prop extends CommonDbProp{
+public class Dbcp2Prop extends CommonDbProp {
     private final Properties dbcp2Prop;
 
     private void parse() {

@@ -2,7 +2,7 @@ package tr.gov.bilgem.tubitak.data.repository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tr.gov.bilgem.tubitak.eski.hikaripool.configuration.HikariConf;
+import tr.gov.bilgem.tubitak.arch.connections.ConnectionPoolFactory;
 import tr.gov.bilgem.tubitak.data.entity.User;
 
 import java.sql.Connection;
@@ -24,7 +24,7 @@ public class UserRepository {
 
     public Iterable<User> findAll() {
         List<User> users;
-        try (Connection con = HikariConf.getConnection();
+        try (Connection con = ConnectionPoolFactory.createPool("dbcp2").getConnection();
              PreparedStatement pst = con.prepareStatement(FIND_ALL_SQL);
              ResultSet rs = pst.executeQuery()) {
 
@@ -47,6 +47,6 @@ public class UserRepository {
     }
 
     public Connection createAndGetConnection() throws SQLException {
-        return HikariConf.getConnection();
+        return ConnectionPoolFactory.createPool("dbcp2").getConnection();
     }
 }
