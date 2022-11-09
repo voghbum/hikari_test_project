@@ -1,6 +1,7 @@
 package tr.gov.bilgem.tubitak.arch.pools;
 
 
+import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariConfigMXBean;
 import com.zaxxer.hikari.HikariDataSource;
 import com.zaxxer.hikari.HikariPoolMXBean;
@@ -30,7 +31,8 @@ public class HikariPoolTest {
     @BeforeEach
     public void initTestEnvironment() {
         connections = new ArrayList<>();
-        hikariDataSource = HikariPool.getDs();
+        hikariDataSource = (HikariDataSource) CommonPool.commonPool.getDataSource();
+                //(HikariDataSource) ((HikariPool) CommonPool.commonPool.getDataSource());
         hikariConfigMXBean = hikariDataSource.getHikariConfigMXBean();
         hikariPoolMXBean = hikariDataSource.getHikariPoolMXBean();
     }
@@ -74,6 +76,7 @@ public class HikariPoolTest {
         //MaksimumPoolSize'ın 10 olduğundan emin olalım.
         int tempMaxPoolSize = hikariConfigMXBean.getMaximumPoolSize();
         hikariConfigMXBean.setMaximumPoolSize(10);
+        hikariDataSource = new HikariDataSource((HikariConfig) hikariConfigMXBean);
 
         assertEquals(10000, hikariConfigMXBean.getConnectionTimeout());
 

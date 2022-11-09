@@ -16,6 +16,7 @@ public class Dbcp2Prop extends CommonDbProp {
     }
 
     public Dbcp2Prop() {
+        super();
         dbcp2Prop = new Properties();
 
         try {

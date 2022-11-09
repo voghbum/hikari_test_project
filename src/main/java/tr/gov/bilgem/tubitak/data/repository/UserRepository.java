@@ -2,9 +2,10 @@ package tr.gov.bilgem.tubitak.data.repository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tr.gov.bilgem.tubitak.arch.connections.ConnectionPoolFactory;
+import tr.gov.bilgem.tubitak.arch.pools.ConnectionPoolFactory;
 import tr.gov.bilgem.tubitak.data.entity.User;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,9 +23,9 @@ public class UserRepository {
         LOG.info("user repository eklendi");
     }
 
-    public Iterable<User> findAll() {
+    public Iterable<User> findAll() throws IOException {
         List<User> users;
-        try (Connection con = ConnectionPoolFactory.createPool("dbcp2").getConnection();
+        try (Connection con = ConnectionPoolFactory.getInstance().getConnection();
              PreparedStatement pst = con.prepareStatement(FIND_ALL_SQL);
              ResultSet rs = pst.executeQuery()) {
 
@@ -46,7 +47,7 @@ public class UserRepository {
         return users;
     }
 
-    public Connection createAndGetConnection() throws SQLException {
-        return ConnectionPoolFactory.createPool("dbcp2").getConnection();
+    public Connection createAndGetConnection() throws SQLException, IOException {
+        return ConnectionPoolFactory.getInstance().getConnection();
     }
 }

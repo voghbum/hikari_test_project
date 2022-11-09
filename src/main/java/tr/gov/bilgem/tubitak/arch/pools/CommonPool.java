@@ -1,10 +1,13 @@
 package tr.gov.bilgem.tubitak.arch.pools;
 
+import javax.sql.DataSource;
+import java.io.Closeable;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public interface CommonPool extends AutoCloseable {
-    Connection getConnection() throws SQLException;
+public interface CommonPool extends Closeable {
+    CommonPool commonPool = ConnectionPoolFactory.getInstance();
 
-    //Connection getConnection() throws Exception;
+    Connection getConnection() throws SQLException;
+    DataSource getDataSource();
 }
