@@ -1,4 +1,4 @@
-package tr.gov.bilgem.tubitak.HikariPool.configuration;
+package tr.gov.bilgem.tubitak.arch.pools;
 
 
 import com.zaxxer.hikari.HikariConfigMXBean;
@@ -9,7 +9,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tr.gov.bilgem.tubitak.arch.pools.HikariPool;
-import tr.gov.bilgem.tubitak.eski.hikaripool.configuration.HikariConf;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -22,7 +21,7 @@ import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class HikariDataSourceTest {
+public class HikariPoolTest {
     private HikariDataSource hikariDataSource;
     private HikariPoolMXBean hikariPoolMXBean;
     private HikariConfigMXBean hikariConfigMXBean;
@@ -163,7 +162,7 @@ public class HikariDataSourceTest {
 
     @Test
     public void isOKChangePoolConfigurationInRuntimeBetweenSuspendAndResume() {
-        HikariDataSource datasource = HikariConf.getDs();
+        HikariDataSource datasource = hikariDataSource;
         HikariPoolMXBean poolMXBean = datasource.getHikariPoolMXBean();
 
         assertEquals(40000, datasource.getHikariConfigMXBean().getMaxLifetime());

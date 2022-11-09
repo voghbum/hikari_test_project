@@ -8,13 +8,14 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.function.Supplier;
 
 public class ConnectionPoolFactory {
-    private static final Map<String, CommonPool> map = new HashMap<>();
+    private static final Map<String, Supplier<CommonPool>> map = new HashMap<>();
 
     static {
-        map.put("Hikari", new HikariPool());
-        map.put("dbcp2", new Dbcp2Pool());
+        map.put("Hikari", HikariPool::new);
+        map.put("dbcp2", Dbcp2Pool::new);
     }
 
     public static CommonPool createPool() {
@@ -29,7 +30,7 @@ public class ConnectionPoolFactory {
 
         String type = commonProp.getProperty("poolType");
 
-        return map.get(type);
+        return map.get(type).get();
     }
 
     public static CommonPool createPool(String type) {
@@ -38,6 +39,6 @@ public class ConnectionPoolFactory {
         if (val == null)
             throw new RuntimeException("unknown Pool Type");
 
-        return val;
+        return val.get();
     }
 }
