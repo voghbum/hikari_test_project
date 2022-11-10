@@ -10,7 +10,7 @@ public class Dbcp2PoolTest {
     public void isOkgettingConnection() throws Exception {
         Connection con;
 
-        try (CommonPool pool = ConnectionPoolFactory.getInstance()) {
+        try (CommonPool pool = ConnectionPoolFactory.createPool()) {
             con = pool.getConnection();
         }
 

@@ -6,8 +6,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public interface CommonPool extends Closeable {
-    CommonPool commonPool = ConnectionPoolFactory.getInstance();
-
     Connection getConnection() throws SQLException;
     DataSource getDataSource();
 }

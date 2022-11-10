@@ -5,27 +5,28 @@ import org.slf4j.LoggerFactory;
 import tr.gov.bilgem.tubitak.arch.pools.ConnectionPoolFactory;
 import tr.gov.bilgem.tubitak.data.entity.User;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class UserRepository {
     private static final Logger LOG = LoggerFactory.getLogger(UserRepository.class);
-
-    private Connection con;
     private static final String FIND_ALL_SQL = "select * from users";
+    ConnectionPoolFactory connectionPoolFactory = new ConnectionPoolFactory();
+    Properties properties = new Properties();
 
     public UserRepository() {
         LOG.info("user repository eklendi");
     }
 
-    public Iterable<User> findAll() throws IOException {
+    public Iterable<User> findAll() {
         List<User> users;
-        try (Connection con = ConnectionPoolFactory.getInstance().getConnection();
+
+        try (Connection con = connectionPoolFactory.createPool(properties).getConnection();
              PreparedStatement pst = con.prepareStatement(FIND_ALL_SQL);
              ResultSet rs = pst.executeQuery()) {
 
@@ -45,9 +46,5 @@ public class UserRepository {
             throw new RuntimeException(e);
         }
         return users;
-    }
-
-    public Connection createAndGetConnection() throws SQLException, IOException {
-        return ConnectionPoolFactory.getInstance().getConnection();
     }
 }
